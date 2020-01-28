@@ -23,4 +23,10 @@ Pod::Spec.new do |s|
   end
   # allow this package to be used with use_frameworks!
   s.static_framework = true
+  # fix recursive header flag being skipped by cocoapods when using this as a framework
+  s.xcconfig =  {
+    'ENABLE_BITCODE' => 'YES',
+    'OTHER_CFLAGS'  => '-fembed-bitcode',
+    'HEADER_SEARCH_PATHS' => '$(inherited) ${PODS_ROOT}/Headers/Public/**'
+  }
 end
